@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .red {
+    color: #f00;
+  }
+</style>
+
+<body>
+  <div id="app">
+    {{getTotal}}
+    <ul>
+      <li v-for="(item,index) in fruits" :class="{red : curI == index}">{{item}}</li>
+    </ul>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    const vue = new Vue({
+      el: "#app",
+      data: {
+        numbers: [56, 61, 94, 53, 432, 102, 89, 564, 265, 13],
+        fruits: ['aaa', 'bbb', 'ccc', 'ddd'],
+        curI: undefined,
+      },
+      methods: {
+        changeColor(index) {
+          this.curI = index;
+        }
+      },
+      computed: {
+        getTotal() {
+          return this.numbers.filter(n => n < 100).map(n => n * 2).reduce((preV, curV) => preV + curV);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

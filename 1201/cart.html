@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .empty { padding:20px 0; color:#f00; text-align: center; }
+  td { text-align: center; ;}
+</style>
+<body>
+  <table>
+    <colgroup>
+      <col width="100px"/>
+      <col width="200px"/>
+      <col width="100px"/>
+      <col width="100px"/>
+      <col width="100px"/>
+    </colgroup>
+    
+    <tbody>
+      <tr>
+        <th>序号</th>
+        <th>图书名称</th>
+        <th>价格</th>
+        <th>个数</th>
+        <th>移除</th>
+      </tr>
+    </tbody>
+  </table>
+  <div id="app">
+    <div v-if="books.length">
+      <table>
+        <colgroup>
+          <col width="100px"/>
+          <col width="200px"/>
+          <col width="100px"/>
+          <col width="100px"/>
+          <col width="100px"/>
+        </colgroup>
+        
+        <tbody>
+          <tr v-for="(book,index) in books">
+            <td>{{book.no}}</td>
+            <td>{{book.name}}</td>
+            <td>{{book.price | fixedPrice}}</td>
+            <td>
+              <button @click="decrease(index)" :disabled = "book.count <= 1">-</button>{{book.count}}<button @click="increase(index)">+</button>
+            </td>
+            <td><button @click="remove(index)">移除</button></td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div class="empty" v-else>购物车是空的。</div>
+    
+    <div>Total:{{getTotal | fixedPrice}}</div>
+  </div>
+  
+  <script src="../vue.js"></script>
+  <script>
+    const vue = new Vue({
+      el:"#app",
+      data:{
+        books:[
+          {
+            'no':'1',
+            'name':'分解符王和',
+            'price':85,
+            'count':1
+          },
+          {
+            'no':'2',
+            'name':'分为房屋本文分为',
+            'price':45,
+            'count':1
+          },
+          {
+            'no':'3',
+            'name':'及物品微积分',
+            'price':49,
+            'count':1
+          },
+          {
+            'no':'4',
+            'name':'我脾分机呜呜',
+            'price':95,
+            'count':1
+          },
+        ],
+        total:0,
+        first:{'price':0,'count':0}
+      },
+      methods:{
+        increase(index){
+          this.books[index].count ++;
+        },
+        decrease(index){
+          this.books[index].count --;
+        },
+        remove(index){
+          this.books.splice(index,1);
+        }
+      },
+      filters:{
+        fixedPrice(price){
+          return '$' + price.toFixed(2);
+        }
+      },
+      computed:{
+        getTotal(){
+          /*let total = 0;
+          this.books.map(function(book){
+            total += book.price * book.count
+          });
+          return total;*/
+          return this.books.reduce(function(preV,curV){
+            return preV + curV.price * curV.count
+          },0);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .active { color: #f00; }
+</style>
+<body>
+    <div id="app">
+      <ul>
+        <li v-for="(item,index) in fruit" :class="{active : currentIndex === index }" @click = "changeIndex(index)">{{item}}</li>
+      </ul>
+    </div>
+    
+    <script src="../vue.js"></script>
+    <script>
+      const vue = new Vue({
+        el:"#app",
+        data:{
+          fruit:['西瓜','草莓','葡萄','苹果'],
+          currentIndex:0
+        },
+        methods:{
+          changeIndex (index){
+            this.currentIndex = index;
+            console.log(1)
+          }
+        }
+      });
+    </script>
+</body>
+</html>
