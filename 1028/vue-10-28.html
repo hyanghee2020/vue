@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .red { color:#f00; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li @click="changeColor(index)" :class="{red:isRed}" v-for="(m ,index) in movies">{{index + "-"+ m}}</li>
+    </ul>
+  </div>
+  
+  <script src="../vue.js"></script>
+  <script>
+    const vue = new Vue({
+      el:'#app',
+      data:{
+        movies:['aaa','bbb','ccc','ddd'],
+        isRed:false,
+      },
+      methods:{
+        changeColor: function(index){
+          this.isRed = !this.isRed;
+        },
+      }
+    });
+  </script>
+</body>
+</html>

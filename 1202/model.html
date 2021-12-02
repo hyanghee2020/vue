@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- v-model的双向绑定 -->
+    <!--input 的双向绑定 v-model.lazy,model.trim,model.number -->
+    <input type="text" v-model="message" />
+    <p>输入的内容为：{{message}}</p>
+    <!--input v-model.lazy,model.trim,model.number -->
+    <input type="text" v-model.lazy="messageLazy" />
+    <p>输入的内容为(LAZY)：{{messageLazy}}</p>
+    <input type="text" v-model.trim="messageTrim" />
+    <p>输入的内容为(TRIM)：{{messageTrim}}</p>
+    <input type="text" v-model.number="messageNUMBER" />
+    <p>输入的内容为(NUMBER)：{{messageNUMBER}} 的类型为 {{typeof messageNUMBER}}</p>
+    <!-- input radio -->
+    <input id="male" type="radio" value="男" v-model="gender" /><label for="male">男</label>
+    <input id="female" type="radio" value="女" v-model="gender" /><label for="female">女</label>
+    <p>性别为：{{gender}}</p>
+    <!-- input checkbox 数组 -->
+    <input id="hobby-1" type="checkbox" v-model="hobbies" value="看书" /><label for="hobby-1">看书</label>
+    <input id="hobby-2" type="checkbox" v-model="hobbies" value="听歌" /><label for="hobby-2">听歌</label>
+    <input id="hobby-3" type="checkbox" v-model="hobbies" value="玩游戏" /><label for="hobby-3">玩游戏</label>
+    <input id="hobby-4" type="checkbox" v-model="hobbies" value="看电影" /><label for="hobby-4">看电影</label>
+    <p>爱好为：{{hobbies}}</p>
+    <!-- input checkbox 布尔值 -->
+    <input id="agree" type="checkbox" v-model="isAgree"/><label for="agree">同意协议</label> 
+    <button :disabled="!isAgree">下一页</button>
+    <!-- input select -->
+    <div>
+      <select name="fruit" v-model="fruit">
+        <option value="请选择水果">请选择水果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="苹果">苹果</option>
+        <option value="葡萄">葡萄</option>
+        <option value="橙子">橙子</option>
+      </select>
+      <p>选择的水果是：{{fruit}}</p>
+    </div>
+    <!-- input select 多选 -->
+    <div>
+      <select name="fruit" v-model="courses" multiple>
+        <option value="数学">数学</option>
+        <option value="科学">科学</option>
+        <option value="物理">物理</option>
+        <option value="化学">化学</option>
+      </select>
+      <p>选择的科目是：{{courses}}</p>
+    </div>
+    <!-- input select 值绑定-->
+    <div>
+      <label v-for="date in originDates"><input type="checkbox" :value="date" v-model="selectedDates" />{{date}}</label>
+      <p>选择的日期是：{{selectedDates}}</p>
+    </div>
+
+  </div>
+  
+  <script src="../vue.js"></script>
+  <script>
+    const app = new Vue({
+      el:"#app",
+      data:{
+        message:'hello',
+        messageLazy:'helloLAZY',
+        messageTrim:'helloTRIM',
+        messageNUMBER:'',
+        gender:'女',
+        hobbies:[],
+        isAgree:false,
+        fruit:'请选择水果',
+        courses:[],
+        originDates:['12-01','12-02','12-03','12-04'],
+        selectedDates:[],
+      }
+    });
+  </script>
+</body>
+</html>
